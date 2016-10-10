@@ -15,7 +15,6 @@
 
 package com.cloudera.oryx.lambda.speed;
 
-import java.io.IOException;
 import java.util.List;
 
 import com.typesafe.config.Config;
@@ -39,7 +38,7 @@ public abstract class AbstractSpeedIT extends AbstractLambdaIT {
   final List<KeyMessage<String,String>> startServerProduceConsumeTopics(
       Config config,
       int howMany,
-      int howManyUpdate) throws IOException, InterruptedException {
+      int howManyUpdate) throws InterruptedException {
     return startServerProduceConsumeTopics(config,
                                            new DefaultCSVDatumGenerator(),
                                            new MockModelGenerator(),
@@ -54,7 +53,6 @@ public abstract class AbstractSpeedIT extends AbstractLambdaIT {
       int howManyInput,
       int howManyUpdate) throws InterruptedException {
 
-    int zkPort = getZKPort();
     int kafkaPort = getKafkaBrokerPort();
 
     ProduceData inputProducer = new ProduceData(inputGenerator,
@@ -70,7 +68,7 @@ public abstract class AbstractSpeedIT extends AbstractLambdaIT {
 
     List<KeyMessage<String,String>> keyMessages;
     try (CloseableIterator<KeyMessage<String,String>> data =
-             new ConsumeData(UPDATE_TOPIC, zkPort).iterator();
+             new ConsumeData(UPDATE_TOPIC, kafkaPort).iterator();
          SpeedLayer<?,?,?> speedLayer = new SpeedLayer<>(config)) {
 
       log.info("Starting speed layer");

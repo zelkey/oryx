@@ -45,7 +45,7 @@ public abstract class AbstractBatchIT extends AbstractLambdaIT {
   protected List<KeyMessage<String,String>> startServerProduceConsumeTopics(
       Config config,
       int howMany,
-      int intervalMsec) throws IOException, InterruptedException {
+      int intervalMsec) throws InterruptedException {
     return startServerProduceConsumeTopics(config,
                                            new DefaultCSVDatumGenerator(),
                                            howMany,
@@ -56,9 +56,7 @@ public abstract class AbstractBatchIT extends AbstractLambdaIT {
       Config config,
       DatumGenerator<String,String> datumGenerator,
       int howMany,
-      int intervalMsec) throws IOException, InterruptedException {
-
-    int zkPort = getZKPort();
+      int intervalMsec) throws InterruptedException {
 
     ProduceData produce = new ProduceData(datumGenerator,
                                           getKafkaBrokerPort(),
@@ -68,7 +66,7 @@ public abstract class AbstractBatchIT extends AbstractLambdaIT {
 
     List<KeyMessage<String,String>> keyMessages;
     try (CloseableIterator<KeyMessage<String,String>> data =
-             new ConsumeData(UPDATE_TOPIC, zkPort).iterator();
+             new ConsumeData(UPDATE_TOPIC, getKafkaBrokerPort()).iterator();
          BatchLayer<?,?,?> batchLayer = new BatchLayer<>(config)) {
 
       log.info("Starting batch layer");

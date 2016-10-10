@@ -166,7 +166,7 @@
       </dependency>
       <dependency>
         <groupId>org.apache.spark</groupId>
-        <artifactId>spark-streaming-kafka-0-8_${scala.minor.version}</artifactId>
+        <artifactId>spark-streaming-kafka-0-10_${scala.minor.version}</artifactId>
         <version>${spark.version}</version>
         <scope>provided</scope>
       </dependency>
@@ -182,6 +182,11 @@
         <artifactId>kafka_${scala.minor.version}</artifactId>
         <version>${kafka.version}</version>
         <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.kafka</groupId>
+        <artifactId>kafka-clients</artifactId>
+        <version>${kafka.version}</version>
       </dependency>
 
       <!-- Harmonized with Spark, Kafka to be sure -->
@@ -538,7 +543,7 @@
     <jackson.version>2.8.4</jackson.version>
     <javadoc.plugin.version>2.10.4</javadoc.plugin.version>
     <jersey.version>2.25</jersey.version>
-    <kafka.version>0.9.0.1</kafka.version>
+    <kafka.version>0.10.1.1</kafka.version>
     <koloboke.version>1.0.0</koloboke.version>
     <netlib.java.version>1.1.2</netlib.java.version>
     <slf4j.version>1.7.22</slf4j.version>
@@ -1163,9 +1168,6 @@
   <profiles>
     <profile>
       <id>cdh59</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
       <properties>
         <cdh.version>5.9.1</cdh.version>
         <hadoop.version>2.6.0-cdh${cdh.version}</hadoop.version>
