@@ -11,7 +11,7 @@ matrix:
     # Covers Spark 2.0+
     - env: JACOCO=-Pjacoco
     # Covers CDH 5.9+
-    - env: CDH=-Pcdh59
+    # - env: CDH=-Pcdh59  # disabled for Kafka 0.10 for now
 cache:
   directories:
     - $HOME/.m2
